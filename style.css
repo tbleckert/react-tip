@@ -1,0 +1,12 @@
+.react-tooltip {
+    background: #D05966;
+    position: absolute;
+}
+
+.react-tooltip__content {
+    color: #EDEBE4;
+    font-size: 12px;
+    padding: 4px 8px;
+    font-family: 'Open Sans', sans-serif;
+    display: block;
+}
