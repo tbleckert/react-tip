@@ -1,7 +1,7 @@
 {
   "name": "react-tip",
-  "version": "0.0.1",
-  "description": "React tiny, zero-dependency tooltip component",
+  "version": "0.0.2",
+  "description": "Tiny, zero-dependency react tooltip component",
   "main": "dist",
   "scripts": {
     "lint": "eslint src/*.js",
