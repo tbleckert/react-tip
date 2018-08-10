@@ -10,10 +10,15 @@ const TooltipContent = (props) => {
     const contentAttributes = {};
 
     if (props.className) {
-        wrapperAttributes.className = props.className;
-        contentAttributes.className = `${props.className}__content`;
+        if (typeof props.className === 'string') {
+            wrapperAttributes.className = props.className;
+            contentAttributes.className = `${props.className}__content`;
+        } else {
+            wrapperAttributes.className = props.className.container;
+            contentAttributes.className = props.className.content;
+        }
     } else if (props.styles) {
-        wrapperAttributes.style = props.styles.wrapper;
+        wrapperAttributes.style = props.styles.container;
         contentAttributes.style = props.styles.content;
     }
 
@@ -30,13 +35,14 @@ const TooltipContent = (props) => {
 
 TooltipContent.defaultProps = {
     title: null,
-    className: null,
+    className: 'react-tip',
     styles: null,
+    rect: null,
 };
 
 TooltipContent.propTypes = {
     title: PropTypes.node,
-    className: PropTypes.string,
+    className: PropTypes.oneOfType([PropTypes.string, PropTypes.objectOf(PropTypes.string)]),
     styles: PropTypes.object,
     rect: PropTypes.object,
 };

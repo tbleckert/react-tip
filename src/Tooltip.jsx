@@ -2,44 +2,56 @@ import React, { Component, Fragment } from 'react';
 import Tooltips from './Tooltips';
 import TooltipContent from './TooltipContent';
 
-const tooltip = (WrappedComponent, settings) => class extends Component {
-    constructor(props) {
-        super(props);
+let defaultSettings = {};
 
-        this.state = {
-            display: false,
-            rect: null,
-            title: null,
-        };
+const tooltip = (WrappedComponent, settings) => {
+    if (!WrappedComponent) {
+        defaultSettings = settings;
+
+        return null;
     }
 
-    onMouseEnter = (e) => {
-        const { target } = e;
+    return class extends Component {
+        constructor(props) {
+            super(props);
 
-        this.setState({
-            display: true,
-            rect: target.getBoundingClientRect(),
-            title: target.getAttribute('title'),
-        });
-    };
+            this.state = {
+                display: false,
+                rect: null,
+                title: null,
+            };
 
-    onMouseLeave = () => {
-        this.setState({ display: false, title: null });
-    };
+            this.settings = settings || defaultSettings;
+        }
 
-    render() {
-        return (
-            <Fragment>
-                <WrappedComponent
-                    onMouseEnter={this.onMouseEnter}
-                    onMouseLeave={this.onMouseLeave}
-                    {...this.props}
-                />
-                <Tooltips>
-                    <TooltipContent {...this.state} {...settings} />
-                </Tooltips>
-            </Fragment>
-        );
+        onMouseEnter = (e) => {
+            const { target } = e;
+
+            this.setState({
+                display: true,
+                rect: target.getBoundingClientRect(),
+                title: target.getAttribute('title'),
+            });
+        };
+
+        onMouseLeave = () => {
+            this.setState({ display: false, title: null });
+        };
+
+        render() {
+            return (
+                <Fragment>
+                    <WrappedComponent
+                        onMouseEnter={this.onMouseEnter}
+                        onMouseLeave={this.onMouseLeave}
+                        {...this.props}
+                    />
+                    <Tooltips>
+                        <TooltipContent {...this.state} {...this.settings} />
+                    </Tooltips>
+                </Fragment>
+            );
+        }
     }
 };
 

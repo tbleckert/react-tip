@@ -4,6 +4,10 @@ import { render } from 'react-dom';
 import tooltip from '../src';
 import '../style.css';
 
+tooltip(null, {
+    className: 'react-tooltip',
+});
+
 let Link = props => (
     <a {...props}>{props.children}</a>
 );
@@ -12,9 +16,7 @@ Link.propTypes = {
     children: PropTypes.node.isRequired,
 };
 
-Link = tooltip(Link, {
-    className: 'react-tooltip',
-});
+Link = tooltip(Link);
 
 const App = () => (
     <div>
